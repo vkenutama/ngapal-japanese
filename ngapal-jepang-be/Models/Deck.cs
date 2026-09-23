@@ -1,0 +1,21 @@
+using System;
+
+namespace ngapal_jepang_be.Models;
+
+public class Deck
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Name {get; set;} = string.Empty;
+
+    // Foreign key and navigation prop
+    public Guid UserId { get; set; }
+    public User User { get; set; } = null!;
+
+    // Collection navigation to flashcard
+    public ICollection<Flashcard> Flashcards { get; set; } = new List<Flashcard>();
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? LastLearnedAt { get; set; }
+
+}
