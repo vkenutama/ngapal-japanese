@@ -1,0 +1,23 @@
+## Build and tooling outputs
+[Bb]in/
+[Oo]bj/
+out/
+[Ll]og/
+[Ll]ogs/
+
+## User specific files & IDEs
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+.idea/
+*.suo
+
+## Entity framework & local DBs
+*.db
+*.sqlite
+
+## App settings with secret data
+appsettings.Development.json
+appsettings.Local.json
