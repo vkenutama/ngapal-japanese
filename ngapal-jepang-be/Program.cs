@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ngapal_jepang_be.Data;
+using ngapal_jepang_be.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +23,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<AppDbContext>();
+    DbInitializer.Seed(dbContext);
+}
+
+// Map endpoints
+app.MapUserEndpoints();
+
 app.UseAuthorization();
-
-
-
 app.Run();
