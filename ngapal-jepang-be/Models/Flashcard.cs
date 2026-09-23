@@ -19,15 +19,17 @@ public class Flashcard
     /// <summary>
     /// Progress of the card
     /// </summary>
-    public float ReadProgress { get; set; }
-    public float ListenProgress { get; set; }
-    public float OutputProgress { get; set; }
+    public float ReadProgress { get; set; } = 0.0f;
+    public float ListenProgress { get; set; } = 0.0f;
+    public float OutputProgress { get; set; } = 0.0f;
     public float OverallProgress => (ReadProgress + ListenProgress + OutputProgress / 3f);
 
     /// <summary>
     /// Url to audio
     /// </summary>
     public string? AudioUrl { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 
 }
