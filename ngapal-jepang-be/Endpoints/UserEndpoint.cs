@@ -13,11 +13,16 @@ namespace ngapal_jepang_be.Endpoints
             var group = app.MapGroup("/api/user").WithTags(tags);
 
             // Get User by Id
-            group.MapGet("/id/{userId:guid}", async (Guid? userId, AppDbContext db) =>
+            group.MapGet("/{userId:guid}", async (Guid? userId, AppDbContext db) =>
             {
                 var existingUser = db.Users.Find(userId);
 
-                return existingUser == null ? Results.NotFound("User with this id not found") : Results.Ok(new GetUserDto(existingUser.Name, existingUser.Username, existingUser.PictureUrl, existingUser.CreatedAt));
+                return existingUser == null ? Results.NotFound("User with this id not found") : Results.Ok(new GetUserDto(
+                    existingUser.Name,
+                    existingUser.Username,
+                    existingUser.PictureUrl,
+                    existingUser.CreatedAt)
+                );
             });
 
 
