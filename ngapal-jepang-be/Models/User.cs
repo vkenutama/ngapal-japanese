@@ -15,5 +15,5 @@ public class User
     public ICollection<Deck> Decks { get; set; } = new List<Deck>();
 
     // Date
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

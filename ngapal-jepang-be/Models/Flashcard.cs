@@ -12,9 +12,6 @@ public class Flashcard
     public List<string> Meaning { get; set; } = new();
     public string Description { get; set; } = string.Empty;
 
-    // Foregin key and navigation
-    public Guid DeckId { get; set; }
-    public Deck Deck { get; set; } = null!;
 
     /// <summary>
     /// Progress of the card
@@ -29,7 +26,17 @@ public class Flashcard
     /// </summary>
     public string? AudioUrl { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    /*
+     * Due dates property
+     */
+    public DateTime ReadDueDate { get; set; } = DateTime.UtcNow;
+    public DateTime ListenDueDate { get; set; } = DateTime.UtcNow;
+    public DateTime OutputDueDate { get; set; } = DateTime.UtcNow;
 
+    // Foregin key and navigation
+    public Guid DeckId { get; set; }
+    public Deck Deck { get; set; } = null!;
+    public ICollection<LearnSession> LearnSessions { get; set; } = null!;
 }
