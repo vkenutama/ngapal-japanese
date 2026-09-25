@@ -32,6 +32,9 @@ using(var scope = app.Services.CreateScope())
 
 // Map endpoints
 app.MapUserEndpoints();
+app.MapDeckEndpoint();
+app.MapLearnEndpoints();
+app.MapFlashcardEnpoint();
 
 app.UseAuthorization();
 app.Run();
