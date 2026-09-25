@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Flashcard> Flashcards => Set<Flashcard>();
     public DbSet<Deck> Decks => Set<Deck>();
+    public DbSet<LearnSession> LearnSessions => Set<LearnSession>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,6 +27,10 @@ public class AppDbContext : DbContext
             .HasOne(f => f.Deck)
             .WithMany(d => d.Flashcards)
             .HasForeignKey(f => f.DeckId);
+
+        modelBuilder.Entity<LearnSession>()
+            .HasMany(ls => ls.FlashcardQueue)
+            .WithMany(f => f.LearnSessions);
     }
 
 }
