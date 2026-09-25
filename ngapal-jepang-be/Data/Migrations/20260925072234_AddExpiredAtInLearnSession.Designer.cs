@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ngapal_jepang_be.Data;
 
@@ -10,27 +11,14 @@ using ngapal_jepang_be.Data;
 namespace ngapal_jepang_be.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260925072234_AddExpiredAtInLearnSession")]
+    partial class AddExpiredAtInLearnSession
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.12");
-
-            modelBuilder.Entity("FlashcardLearnSession", b =>
-                {
-                    b.Property<Guid>("FlashcardQueueId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("LearnSessionsId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("FlashcardQueueId", "LearnSessionsId");
-
-                    b.HasIndex("LearnSessionsId");
-
-                    b.ToTable("FlashcardLearnSession");
-                });
 
             modelBuilder.Entity("ngapal_jepang_be.Models.Deck", b =>
                 {
@@ -123,9 +111,6 @@ namespace ngapal_jepang_be.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CorrectCount")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -135,10 +120,7 @@ namespace ngapal_jepang_be.Data.Migrations
                     b.Property<DateTime>("ExpiredAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("LearnCategory")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MissCount")
+                    b.Property<int>("RetentionCategory")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -177,21 +159,6 @@ namespace ngapal_jepang_be.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FlashcardLearnSession", b =>
-                {
-                    b.HasOne("ngapal_jepang_be.Models.Flashcard", null)
-                        .WithMany()
-                        .HasForeignKey("FlashcardQueueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ngapal_jepang_be.Models.LearnSession", null)
-                        .WithMany()
-                        .HasForeignKey("LearnSessionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ngapal_jepang_be.Models.Deck", b =>
                 {
                     b.HasOne("ngapal_jepang_be.Models.User", "User")
@@ -217,7 +184,7 @@ namespace ngapal_jepang_be.Data.Migrations
             modelBuilder.Entity("ngapal_jepang_be.Models.LearnSession", b =>
                 {
                     b.HasOne("ngapal_jepang_be.Models.Deck", "Deck")
-                        .WithMany("LearnSessions")
+                        .WithMany()
                         .HasForeignKey("DeckId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -228,8 +195,6 @@ namespace ngapal_jepang_be.Data.Migrations
             modelBuilder.Entity("ngapal_jepang_be.Models.Deck", b =>
                 {
                     b.Navigation("Flashcards");
-
-                    b.Navigation("LearnSessions");
                 });
 
             modelBuilder.Entity("ngapal_jepang_be.Models.User", b =>
